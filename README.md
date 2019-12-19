@@ -22,3 +22,4 @@ Features:
 - Integration of spacy for automatic generation of a vrt-representation of texts
 - Using Context Manager for xml-hierarchy representation
 - Reduces to utf8mb3 and checks formatting compatibility
+- If you want to add texts that are automatically POS-Tagged with Spacy, you might look at vrt_spacy
