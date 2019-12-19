@@ -11,7 +11,7 @@ def check_letters(text):
     return min({l in ALLOWED_LETTERS for l in text}) if text else True
 
 
-def toutf8mb3(t):
+def to_utf8mb3(t):
     return "".join([c if ord(c) < 2 ** 16 else "_e" for c in t])
 
 
@@ -81,22 +81,6 @@ class Corpus:
         self._idcount += 1
         return "t{}".format(self._idcount)
 
-    def add_spacy(self, spacymodel="de_core_news_md", add_patrs=["tag_", "pos_", "lemma_"]):
-        assert self._pattrs == 1 + len(add_patrs)
-
-        try:
-            import spacy
-            self._nlp = spacy.load(spacymodel)
-        except Exception as e:
-            print("Spacy must be installed and model downloaded")
-            print("For example you may execute 'python3 -m spacy download de_core_news_md'")
-            raise e
-
-        allowed = ["ent_type_", "lower_", "norm_", "prefix_", "suffix_", "lemma_", "pos_", "tag_", "dep_"]
-        for attr in add_patrs:
-            assert attr in allowed
-        self._add_patrs = add_patrs
-
 
 class Sattribute:
     ATTRNAME = None
@@ -109,7 +93,7 @@ class Sattribute:
 
     def writep(self, *args):
         assert len(args) == self._pattrs
-        args = [toutf8mb3(escape(line)) for line in args]
+        args = [to_utf8mb3(escape(line)) for line in args]
         self.writeline("\t".join(args))
 
     def close(self):
@@ -165,55 +149,10 @@ class S(Sattribute):
         self.writeline('<{}>'.format(self.ATTRNAME))
 
 
-def annotext_german(corpus, text, **kwargs):
-    """
-    Uses germalemma,
-    :param corpus: reference to corpus class
-    :param text: content of text
-    :param kwargs: text-metadata conform with corpus settings
-    :return:
-    """
-    assert isinstance(corpus, Corpus)
-    assert corpus._pattrs == 4
-    assert isinstance(text, str)
-    with Text(corpus, **kwargs) as t:
-        pass
-        # TODO Great stuff
-
-
-def annotext_spacy(corpus, text, **kwargs):
-    """
-    Uses spacy for creating annotext
-    :param corpus: corpus object with loaded spacy
-    :param text: string of corpus text
-    :param kwargs: parameters for text metadata
-    """
-
-    assert isinstance(corpus, Corpus)
-    try:
-        nlp = corpus._nlp
-        add_patrs = corpus._add_patrs
-    except:
-        raise Exception("Spacy not configured yet")
-
-    assert corpus._pattrs == 1 + len(add_patrs)
-    assert isinstance(text, str)
-
-    with Text(corpus, **kwargs) as t:
-        text = nlp(text.replace("\n", " "))
-        for s in text.sents:
-            with S(corpus) as sw:
-                for w in s:
-                    sw.writep(w.text, *[getattr(w, attr) for attr in add_patrs])
-
 
 """
 def _testcode():
     with Corpus("~", "mycorpus", 4, "textname", "author") as c:
-        c.add_spacy()
-        text = "Das hier ist ein kurzer Test um das Modell auszuprobieren. Manchmal geht das, manchmal auch nicht ;)"
-        annotext_spacy(c, text, textname="Demotext1", author="someZeit_guy")
-
         with Text(c, textname="Demotext2", author="Frank_N") as text:
             with P(c) as paragraph:
                 with S(c) as s:

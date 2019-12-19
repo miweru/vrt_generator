@@ -11,8 +11,6 @@ setup(
     description='creating vrt corpora',
     install_requires=[
         "smart_open>=1.9.0",
-        "spacy>=2.2.3",
-        "https://github.com/explosion/spacy-models/releases/download/de_core_news_md-2.2.5/de_core_news_md-2.2.5.tar.gz"
     ],
     python_requires=">=3.5",
     classifiers=[
