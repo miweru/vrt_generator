@@ -69,6 +69,8 @@ class Corpus:
         self.writeline("</corpus>")
         self._fo.close()
         self._metaf.close()
+        assert self._fo.closed
+        assert self._metaf.closed
 
     def __enter__(self):
         return self
