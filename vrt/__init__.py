@@ -1,8 +1,9 @@
-from smart_open import open
-from os import path
 import csv
+from os import path
 from pathlib import Path
 from xml.sax.saxutils import escape
+
+from smart_open import open
 
 ALLOWED_LETTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
 
@@ -146,7 +147,6 @@ class S(Sattribute):
     def __init__(self, corpus):
         super().__init__(corpus, self.ATTRNAME)
         self.writeline('<{}>'.format(self.ATTRNAME))
-
 
 
 """
