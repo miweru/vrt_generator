@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='vrt_generator',
-    version='0.0.5',
+    version='0.0.6',
     packages=['vrt'],
     url='https://github.com/miweru/vrt_generator',
     license='',

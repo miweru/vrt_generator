@@ -4,15 +4,13 @@ Still in very early testing stage.
 
 Install by typing:
 ```bash
-pip install git+https://github.com/miweru/vrt_generator
+pip install vrt_generator
 ```
 
 Usage Example:
 ```python
-from vrt import Corpus, P, S, Text, annotext_spacy
+from vrt import Corpus, P, S, Text
 with Corpus("~","meinkorpus",4,"text_name") as c:
-    c.add_spacy()
-    annotext_spacy(c, "Das hier ist mein Text", text_name="Text1")
     with Text(c, text_name="Text2") as t:
         with S(c) as s:
             s.writep("Test","TAG","TAG","Lemma")  

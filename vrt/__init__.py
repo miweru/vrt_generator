@@ -24,9 +24,8 @@ class Corpus:
         self._meta.writerow(metadata)
 
     def __init__(self, target_folder, name, pattrs, *args):
-        target_folder = path.expanduser(target_folder)
-        target_folder = Path(target_folder)
-        assert path.isdir(target_folder)
+        target_folder = Path(target_folder).expanduser().resolve()
+        assert target_folder.exists()
         try:
             assert check_letters(name)
         except Exception as e:
