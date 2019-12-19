@@ -1,5 +1,8 @@
 from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='vrt_generator',
     version='0.0.5',
@@ -9,6 +12,7 @@ setup(
     author='Michael Ruppert',
     author_email='michael.ruppert@fau.de',
     description='creating vrt corpora',
+    long_description=long_description,
     install_requires=[
         "smart_open>=1.9.0",
     ],
