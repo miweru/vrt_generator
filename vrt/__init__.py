@@ -10,8 +10,9 @@ ALLOWED_LETTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy
 def check_letters(text):
     return min({l in ALLOWED_LETTERS for l in text}) if text else True
 
+
 def toutf8mb3(t):
-    return "".join([c if ord(c)<2**16 else "_e" for c in t])
+    return "".join([c if ord(c) < 2 ** 16 else "_e" for c in t])
 
 
 class Corpus:
@@ -80,7 +81,7 @@ class Corpus:
         self._idcount += 1
         return "t{}".format(self._idcount)
 
-    def add_spacy(self, spacymodel="de_core_news_sm", add_patrs=["tag_", "pos_", "lemma_"]):
+    def add_spacy(self, spacymodel="de_core_news_md", add_patrs=["tag_", "pos_", "lemma_"]):
         assert self._pattrs == 1 + len(add_patrs)
 
         try:
@@ -88,7 +89,7 @@ class Corpus:
             self._nlp = spacy.load(spacymodel)
         except Exception as e:
             print("Spacy must be installed and model downloaded")
-            print("For example you may execute 'python3 -m spacy download de_core_news_sm'")
+            print("For example you may execute 'python3 -m spacy download de_core_news_md'")
             raise e
 
         allowed = ["ent_type_", "lower_", "norm_", "prefix_", "suffix_", "lemma_", "pos_", "tag_", "dep_"]
@@ -204,6 +205,7 @@ def annotext_spacy(corpus, text, **kwargs):
             with S(corpus) as sw:
                 for w in s:
                     sw.writep(w.text, *[getattr(w, attr) for attr in add_patrs])
+
 
 """
 def _testcode():
