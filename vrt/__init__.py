@@ -85,7 +85,9 @@ class Corpus:
 class Sattribute:
     ATTRNAME = None
 
+    # noinspection PyProtectedMember,PyProtectedMember
     def __init__(self, corpus, attrib_name):
+        self.attrib_name = attrib_name
         assert isinstance(corpus, Corpus)
         assert not corpus._fo.closed
         self.writeline = corpus.writeline

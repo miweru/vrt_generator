@@ -9,7 +9,7 @@ pip install vrt_generator
 
 Usage Example:
 ```python
-from vrt import Corpus, P, S, Text
+from vrt import Corpus,  S, Text
 with Corpus("~","meinkorpus",4,"text_name") as c:
     with Text(c, text_name="Text2") as t:
         with S(c) as s:
