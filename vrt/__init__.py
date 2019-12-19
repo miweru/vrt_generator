@@ -1,5 +1,4 @@
 import csv
-from os import path
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -43,13 +42,13 @@ class Corpus:
             self.fieldnames.append(arg)
 
         self._fo = open(
-            path.join(target_folder, name + ".vrt.gz"),
+            target_folder.joinpath(name + ".vrt.gz"),
             "w",
             encoding="utf8"
         )
 
         self._metaf = open(
-            path.join(target_folder, name + ".meta.tsv"),
+            target_folder.joinpath(name + ".meta.tsv"),
             "w",
             encoding="utf8",
             newline=""
