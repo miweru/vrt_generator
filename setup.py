@@ -13,6 +13,7 @@ setup(
     author_email='michael.ruppert@fau.de',
     description='creating vrt corpora',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     install_requires=[
         "smart_open>=1.9.0",
     ],
